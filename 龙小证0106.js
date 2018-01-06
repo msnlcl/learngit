@@ -1,4 +1,5 @@
 "auto";
+//from lichenlong
 alert("逢山开路，遇水架桥的魄力孕育了龙小证的诞生！满足广大用户的小需求是龙小证的优秀基因！类似的小需求可以反馈哦；欢迎加入龙小证儿，QQ群号码：1974172");
 threads.start(function () {
   events.on("exit", function () {
