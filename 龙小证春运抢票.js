@@ -91,8 +91,6 @@ switch (n_fact) {
       break;
     }
 }
-//console.show();
-//console.log(n_fact);
 window.action.setOnTouchListener(function (view, event) {
   switch (event.getAction()) {
     case event.ACTION_DOWN:
@@ -102,17 +100,14 @@ window.action.setOnTouchListener(function (view, event) {
       windowY = window.getY();
       downTime = new Date().getTime();
       return true;
+    
     case event.ACTION_MOVE:
       window.setPosition(windowX + (event.getRawX() - x),
         windowY + (event.getRawY() - y));
-      if (new Date().getTime() - downTime > 1500) {
-        exit();
-      }
       return true;
     case event.ACTION_UP:
       if (Math.abs(event.getRawY() - y) < 5 && Math.abs(event.getRawX() - x) < 5) {
-        //window.action.setText('龙小证开始抢票');
-        threads.start(function () {
+      threads.start(function () {
           onClick();
         });
       }
