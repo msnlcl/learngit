@@ -1,4 +1,8 @@
 "auto";
+if (parseInt(device.sdkInt) < 24){
+  alert("您手机安卓版本低于7.0版本，无法使用该程序。")
+  exit();
+}
 alert("逢山开路，遇水架桥的魄力孕育了龙小证的诞生！满足广大用户的小需求是龙小证的优秀基因！类似的小需求可以反馈哦；欢迎加入龙小证儿，QQ群号码：1974172");
 threads.start(function() {
   events.on("exit", function() {
@@ -61,15 +65,13 @@ function UiObjectPress(UiObiect, duration) {
   let y = UiObiect.bounds().centerY();
   if (y <= m_h) {
     press(x, y, duration);
-    console.log(x);
-    console.log(y);
+    console.log("点击坐标："+x+","+y);
     return true;
   } else {
     console.log("坐标超出界面,无法使用点击函数！");
     return false;
   }
-  console.log(x);
-  console.log(y);
+  console.log("Press点击坐标信息："+x+","+y);
   console.show();
 }
 
@@ -93,29 +95,6 @@ function Factory(name) {
         console.log("完成");
         break;
       }
-
-    case "Meizu":
-      {
-        console.log("魅族手机");
-        if (parseInt(device.sdkInt) > 23) {
-          sleep(1000);
-          swipe(m_v * 0.95, m_h / 2, m_v * 0.05, m_h / 2, 300);
-          sleep(1000);
-          swipe(m_v * 0.95, m_h / 2, m_v * 0.05, m_h / 2, 300);
-          sleep(1000);
-          while (!((textContains("进京证").exists()) || (descContains("进京证").exists()))) {
-            sleep(1000);
-            swipe(m_v / 2, m_h * 0.8, m_v / 2, m_h * 0.15, 500);
-          }
-        }
-
-        if (textContains("进京证").exists())
-          click("进京证");
-        if (descContains("进京证进京证").exists())
-          click("进京证");
-        break;
-      }
-
     case "HONOR":
       {
         console.log("华为荣耀");
@@ -160,14 +139,6 @@ function Factory_pos(name) {
         break;
       }
 
-    case "Meizu":
-      {
-        console.log("Meizu");
-        if (textOrDesc("进京证").exists())
-          y_pic = String(textOrDesc("进京证").findOne().parent().bounds()).match(/\d+/g);
-        break;
-      }
-
     case "HONOR":
       {
         console.log("荣耀");
@@ -193,14 +164,6 @@ function Factory_confirm(name) {
         console.log("小米");
         break;
       }
-
-    case "Meizu":
-      {
-        console.log("魅族");
-        re_exe('确定', 5);
-        break;
-      }
-
     case "HONOR":
       {
         console.log("荣耀");
@@ -369,6 +332,7 @@ function re_exe(t_text_k, re_counter_k) {
             sleep(1000);
             press((parseInt(refresh_w[0]) + parseInt(refresh_w[2])) * 0.87, (parseInt(refresh_w[1]) + parseInt(refresh_w[3])) / 2, 500);
             sleep(7000);
+            console.show();
             console.log("完成对刷新区域坐标的点击");
             if (textOrDesc(t_text_a).exists()) {
               textOrDesc(t_text_a).findOne().click();
@@ -404,11 +368,6 @@ function re_exe(t_text_k, re_counter_k) {
 
         }
       }
-      /*
-       if (textOrDesc(t_text_a).exists()) {
-         textOrDesc(t_text_a).findOne().click();
-       }
-      */
       if (t_text_a == "确定")
         if (id("timebtn").exists()) {
           console.hide();
@@ -477,8 +436,6 @@ function jjz2() {
   sub_score++;
   sleep(13000);
   console.hide();
-
-  if (parseInt(device.sdkInt) > 23) {
     swipe(m_v / 2, m_h * 0.7, m_v / 2, m_h * 0.15, 1000);
     swipe(m_v / 2, m_h * 0.7, m_v / 2, m_h * 0.15, 1000);
     swipe(m_v / 2, m_h * 0.7, m_v / 2, m_h * 0.15, 1000);
@@ -499,9 +456,6 @@ function jjz2() {
         press(parseInt((parseInt(refresh_l_con[0]) + parseInt(refresh_l_con[2])) / 2), parseInt(parseInt(refresh_l_con[3]) * 0.96), 300);
       }
     }
-  } else
-    re_exe('确定', 5);
-
   sleep(1000);
   console.show();
   sleep(500);
@@ -612,7 +566,6 @@ function jjz2() {
   sub_score = sub_score + 10;
   sleep(1600);
   alert("申请过程结束,请点击音量+按键，结束龙小证!，如果不点的话，无法停止哦！哦，对，他是一匹马，不让它停，它是停不下来的。哈哈哈");
-  //exit();
 }
 
 function stf_v() {
