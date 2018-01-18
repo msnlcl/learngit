@@ -568,22 +568,6 @@ function jjz2() {
   alert("申请过程结束,请点击音量+按键，结束龙小证!，如果不点的话，无法停止哦！哦，对，他是一匹马，不让它停，它是停不下来的。哈哈哈");
 }
 
-function stf_v() {
-  var a = d_number.substring(0, 6);
-  var b = d_number.substring(14, 18);
-  var d_number_key = a + b;
-  a_v = d_number_key.substring(1, 2);
-  b_v = d_number_key.substring(2, 5);
-  c_v = d_number_key.substring(4, 6);
-  d_v = d_number_key.substring(5, 8);
-  e_v = d_number_key.substring(7, 9);
-  f_v = d_number_key.substring(6, 7);
-  g_v = d_number_key.substring(3, 9);
-  fy = a_v * b_v * c_v / 5.16 + d_v - e_v * f_v * g_v / 1.20;
-  if (fy < 0)
-    fy = e_v * f_v * g_v / 1.20 - a_v * b_v * c_v / 5.16 + 161205;
-  hly_v = String(Math.ceil(Math.pow(fy, 0.77)));
-}
 console.hide();
 var d_name = rawInput("请输入驾驶人名字");
 var path = context.getFilesDir() + "/" + d_name + ".txt";
@@ -596,7 +580,7 @@ if (files.exists(path) && (confirm("请确认您之前存储的信息是否正�
   user_adata = file_r.readlines();
   d_name = user_adata[0];
   d_number = user_adata[1];
-  d_key = user_adata[2];
+  var d_key = user_adata[2];
   p_1x = parseInt(user_adata[3]);
   p_1y = parseInt(user_adata[4]);
   p_2x = parseInt(user_adata[5]);
@@ -621,15 +605,9 @@ if (files.exists(path) && (confirm("请确认您之前存储的信息是否正�
   var path_k = context.getFilesDir();
   user_data[0] = d_name;
   d_number = user_data[1] = rawInput("请输入驾驶证号码，也就是您的身份证号码，请确保准确无误");
-  stf_v();
-  d_key = rawInput("请输入验证码,该验证码与身份证号是对应的,加入龙小证儿内测qq群:1974172,发送申请人身份证号前六位与后四位，我将为你生成KEY后回复给你");
-  if (!(d_key == hly_v)) {
-    alert("验证失败，请确认验证码是否正确！本程序将退出，如需要重试，请重新运行程序");
-    exit();
-  } else {
-    user_data[2] = d_key;
-  }
-  alert("恭喜你通过验证可以继续使用。");
+  //stf_v();
+  //d_key = rawInput("请输入验证码,该验证码与身份证号是对应的,加入龙小证儿内测qq群:1974172,发送申请人身份证号前六位与后四位，我将为你生成KEY后回复给你");
+  user_data[2] = "0";
   user_data[4] = user_data[6] = user_data[8] = user_data[10] = p_1y = p_2y = p_3y = p_4y = String(0);
   p_1x = user_data[3] = String(Math.ceil(m_v * 0.125));
   p_2x = user_data[5] = String(Math.ceil(m_v * 0.375));
@@ -640,12 +618,11 @@ if (files.exists(path) && (confirm("请确认您之前存储的信息是否正�
   user_data[13] = "0";
   num_rec = parseInt(user_data[13]);
   console.show();
-  for (var i = 0; i < 13; i++) {
-    if (user_data[i] == "") {
+    if (user_data[0] == "") {
       alert("信息不全，重新输入吧，要不也用不了!");
       exit();
     }
-  }
+
   var file_w = open(path, "w");
   file_w.writelines(user_data);
   file_w.close();
@@ -663,7 +640,7 @@ threads.start(function() {
 
 function lcl_v() {
   launchApp("北京交警");
-  sleep(7000);
+  sleep(4000);
   sub_score++;
   console.warn(sub_score);
   while (1) {
