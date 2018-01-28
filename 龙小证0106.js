@@ -44,7 +44,7 @@ check_f = files.listDir(path_f, function(name) {
 
 function gettime() {
   var recode_qq = http.get("http://cgi.im.qq.com/cgi-bin/cgi_svrtime");
-  qqTime = recode_qq.body.string().replace(" ", "T");
+  return recode_qq.body.string().replace(" ", "T");
 }
 
 function clickByXY(widget) {
@@ -691,8 +691,6 @@ function abstime() {
   while (qqTime.indexOf("html") >= 0) {
     sleep(200);
     gettime();
-
-
   }
   var same_check = qqTime;
   var w_data = qqTime.slice(8, 10);
